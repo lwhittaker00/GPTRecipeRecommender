@@ -1,12 +1,11 @@
 {% extends 'recommender/base.html' %}
 
 {% block content %}
-<p>Below you can find a list of your past requests, and tapping on a request will bring up it's details, and editing
-    functionality. To create a new request, tap on the add icon at the top right of your page (Must be logged in!).</p>
+<p>To create a new request, tap on the add icon at the top right of your page (Must be logged in!). Once you have made a request, they will show up below.</p>
 {% for post in posts %}
 <article class="post">
     <time class="date">
-        {{ post.created_date }}
+        {{ post.requested_date }}
     </time>
     <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
     <p>{{ post.ingredients|linebreaksbr }}</p>
