@@ -9,10 +9,9 @@ class Post(models.Model):
     ingredients = models.TextField()
     tools = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
-    requested_date = models.DateTimeField(blank=True, null=True)
 
     def request(self):
-        self.requested_date = timezone.now()
+        self.created_date = timezone.now()
         self.save()
 
     def __str__(self):
