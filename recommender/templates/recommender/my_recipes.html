@@ -1,0 +1,17 @@
+{% extends 'recommender/base.html' %}
+
+{% block content %}
+<h2>My Recipes</h2>
+{% for recipe in recipes %}
+<article class="recipe">
+    <h3>{{ recipe.title }}</h3>
+    <p>Ingredients: {{ recipe.ingredients }}</p>
+    <p>Tools: {{ recipe.tools }}</p>
+    <p>Recommendation: {{ recipe.recommendation }}</p>
+    <form method="post" action="{% url 'delete_recipe' recipe.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</article>
+{% endfor %}
+{% endblock %}

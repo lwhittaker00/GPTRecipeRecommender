@@ -18,4 +18,13 @@
         <p>{{ post.ingredients|linebreaksbr }}</p>
         <p>{{ post.tools|linebreaksbr }}</p>
     </article>
+{% for recipe in recipes %}
+<article class="recipe">
+    <h3>{{ recipe.title }}</h3>
+    <p>Ingredients: {{ recipe.ingredients }}</p>
+    <p>Tools: {{ recipe.tools }}</p>
+    <p>Recommendation: {{ recipe.recommendation }}</p>
+    <p>Created At: {{ recipe.created_at }}</p>
+</article>
+{% endfor %}
 {% endblock %}
