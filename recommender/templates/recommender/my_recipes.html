@@ -1,13 +1,25 @@
-{% extends 'recommender/base.html' %}
-
 {% block content %}
-<h2>My Recipes</h2>
+<!DOCTYPE html>
+<h1>My Recipes</h1>
 {% for recipe in recipes %}
 <article class="recipe">
-    <h3>{{ recipe.title }}</h3>
-    <p>Ingredients: {{ recipe.ingredients }}</p>
-    <p>Tools: {{ recipe.tools }}</p>
-    <p>Recommendation: {{ recipe.recommendation }}</p>
+    <h2>{{ recipe.title }}</h2>
+    <p><strong>Ingredients:</strong></p>
+    
+        {% for ingredient in recipe.ingredients %}
+        {{ ingredient }}
+        {% endfor %}
+    
+    <p><strong>Tools:</strong></p>
+    
+        {% for tool in recipe.tools %}
+        {{ tool }}
+        {% endfor %}
+    
+    <p><strong>Recommendation:</strong></p>
+    <div class="recommendation">
+        <p>{{ recipe.recommendation }}</p>
+    </div>
     <form method="post" action="{% url 'delete_recipe' recipe.id %}">
         {% csrf_token %}
         <button type="submit">Delete</button>

@@ -1,5 +1,4 @@
 from django.shortcuts import redirect
-from django.shortcuts import render
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from .models import Post
@@ -52,10 +51,9 @@ def CreateRecommendation(request):
             ingredients = form.cleaned_data['ingredients']
             tools = form.cleaned_data['tools']
 
-            # Generate recommendation
-            MealRecommendation = GetFoodRec(),
+            MealRecommendation = GetFoodRec(title, ingredients, tools)
 
-            if MealRecommendation:
+            if MealRecommendation:                
                 # Save the recipe with recommendation
                 Recipes.objects.create(
                     title = title,
@@ -71,7 +69,7 @@ def CreateRecommendation(request):
     else:
         form = PostForm()
 
-    return render(request, 'recommender/create_recommendation.html', {'form': form, 'MealRecommendation': MealRecommendation})
+    return render(request, 'recommender/create_recommendation.html', {'form': form})
 
 def recipes_page(request):
     recipes = Recipes.objects.all()
@@ -81,7 +79,6 @@ def delete_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipes, pk=recipe_id)
     if request.method == 'POST':
         recipe.delete()
-        return redirect('my_recipes')  # Redirect to the page displaying the user's recipes
+        return redirect('my_recipes')
     else:
-        # Handle other HTTP methods if needed
         pass

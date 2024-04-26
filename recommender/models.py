@@ -23,6 +23,14 @@ class Recipes(models.Model):
     tools = models.TextField()
     recommendation = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
         return self.title
+    
+    def get_ingredients_list(self):
+        import json
+        return json.loads(self.ingredients)
+
+    def get_tools_list(self):
+        import json
+        return json.loads(self.tools)
