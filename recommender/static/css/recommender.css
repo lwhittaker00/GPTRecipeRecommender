@@ -79,3 +79,7 @@ h5 {
     color: #FFFFFF;
     background-color: #0300c2;
 }
+
+.recommendation {
+    white-space: pre-wrap;
+}

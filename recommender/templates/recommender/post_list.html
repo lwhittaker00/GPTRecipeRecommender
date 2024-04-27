@@ -6,6 +6,9 @@
 <p>Tap on a saved recommendation below to view its details!</p>
 {% for post in posts %}
 <article class="post">
+    <time class="date">
+        {{ post.created_date }}
+    </time>
     <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
     <p>Ingredients: {{ post.ingredients|linebreaksbr }}</p>
     <p>Tools: {{ post.tools|linebreaksbr }}</p>
