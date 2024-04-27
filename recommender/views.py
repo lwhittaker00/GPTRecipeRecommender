@@ -18,11 +18,28 @@ def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.created_date = timezone.now()
-            post.save()
-            return redirect('post_detail', pk=post.pk)
+            title = form.cleaned_data['title']
+            ingredients = form.cleaned_data['ingredients']
+            tools = form.cleaned_data['tools']
+
+            MealRecommendation = GetFoodRec(title, ingredients, tools)
+
+            if MealRecommendation:                
+                # Save the recipe with recommendation
+                post = Post.objects.create(
+                    title = title,
+                    ingredients = ingredients,
+                    tools = tools,
+                    recommendation = MealRecommendation,
+                )
+
+                post.created_date = timezone.now()
+                post.save()
+                # Redirect to the recipes page
+                return redirect('post_detail', pk=post.pk)
+            else:
+                # Log or display error message
+                print("Error: Recommendation could not be generated.")
     else:
         form = PostForm()
     return render(request, 'recommender/post_edit.html', {'form': form})
@@ -80,5 +97,13 @@ def delete_recipe(request, recipe_id):
     if request.method == 'POST':
         recipe.delete()
         return redirect('my_recipes')
+    else:
+        pass
+
+def delete_recommendation(request, post_id):
+    recommendation = get_object_or_404(Post, pk=post_id)
+    if request.method == 'POST':
+        recommendation.delete()
+        return redirect('post_list')
     else:
         pass

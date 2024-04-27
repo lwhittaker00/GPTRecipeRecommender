@@ -9,4 +9,5 @@ urlpatterns = [
     path('create_recommendation/', views.CreateRecommendation, name='create_recommendation'),
     path('my_recipes/', views.recipes_page, name='my_recipes'),
     path('delete_recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
+    path('delete_recommendation/<int:post_id>/', views.delete_recommendation, name='delete_recommendation'),
 ]

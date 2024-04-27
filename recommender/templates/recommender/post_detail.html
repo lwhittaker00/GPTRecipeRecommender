@@ -1,22 +1,22 @@
 {% extends 'recommender/base.html' %}
 {% block content %}
-<h1>Post Details.</h1>
+<h1>Recommendation Details.</h1>
 <article class="post">
-    <aside class="actions">
-        {% if user.is_authenticated %}
-        <a class="btn btn-secondary" href="{% url 'post_edit' pk=post.pk %}">
-            {% include './icons/pencil-fill.svg' %}
-        </a>
-        {% endif %}
-    </aside>
-        {% if post.created_date %}
-            <time class="date">
-                {{ post.created_date }}
-            </time>
-        {% endif %}
         <h2>{{ post.title }}</h2>
+        <h3>Ingredients Available:</h3>
         <p>{{ post.ingredients|linebreaksbr }}</p>
+        <h3>Tools Available:</h3>
         <p>{{ post.tools|linebreaksbr }}</p>
+        <h3>Generated Meal Recommendation:</h3>
+        <div class="recommendation">
+            <p>{{ post.recommendation }}</p>
+        </div>
+
+        <h5>If you would like to retry this recipe, please delete it below and attempt a new request!</h5>
+        <form method="post" action="{% url 'delete_recommendation' post.id %}">
+            {% csrf_token %}
+            <button type="submit" class="save btn btn-primary">Delete Recommendation</button>
+        </form>
+        
     </article>
-{% endfor %}
 {% endblock %}

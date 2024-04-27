@@ -1,15 +1,17 @@
 {% extends 'recommender/base.html' %}
 
 {% block content %}
-<p>To create a new request, tap on the add icon at the top right of your page (Must be logged in!). Once you have made a request, they will show up below.</p>
+<p>To create a new request, tap on the add icon at the top right of your page. Once you have made a request, they will show up below.</p>
+<h2>Saved Recommendations</h2>
+<p>Tap on a saved recommendation below to view its details!</p>
 {% for post in posts %}
 <article class="post">
     <time class="date">
-        {{ post.requested_date }}
+        {{ post.created_date }}
     </time>
     <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
-    <p>{{ post.ingredients|linebreaksbr }}</p>
-    <p>{{ post.tools|linebreaksbr }}</p>
+    <p>Ingredients: {{ post.ingredients|linebreaksbr }}</p>
+    <p>Tools: {{ post.tools|linebreaksbr }}</p>
 </article>
 {% endfor %}
 {% endblock %}
