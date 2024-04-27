@@ -3,7 +3,9 @@ from openai import OpenAI
 OpenAI.api_key = os.getenv('OPENAI_API_KEY')
 client = OpenAI()
 
+#used to run the api assistant
 def GetFoodRec(title, ingredients, tools):
+    #create assistant that responds to user input
     assistant = client.beta.assistants.create(
         name="Recipe Generator",
         instructions=f"Given user inputs Title: {title}, Ingredients: {ingredients}, Tools: {tools}. You are a food recommender generator who after taking user input on the title, ingredients, and tools will provide a recipe recommendation with instructions on making the dish.",
@@ -11,20 +13,24 @@ def GetFoodRec(title, ingredients, tools):
         model="gpt-3.5-turbo-0125",
     )
     
+    #create a thread that represents a conversation with a user
     thread = client.beta.threads.create()   
     
+    #create message object that will get contents of the message from users
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
         content=f"Inputs: {title}, {ingredients}, {tools}. recommend a recipe based on the given inputs"
     )
     
+    #used to generate a response from thread after it has input
     run = client.beta.threads.runs.create_and_poll(
         thread_id=thread.id,
         assistant_id=assistant.id,
-        instructions="Please address the user as Jane Doe. The user has a premium account."
+        instructions="Please address user as chef. User is wanting to learn to cook."
     )
     
+    #once run complete save it to value
     if run.status == 'completed': 
         messages = client.beta.threads.messages.list(
             thread_id=thread.id
