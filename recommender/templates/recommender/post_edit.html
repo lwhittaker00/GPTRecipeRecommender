@@ -5,6 +5,6 @@
     <p>In the spaces provided below, please input a name for your request, your available ingredients and cooking tools, separated by commas. Once you have finished adding in your test, press the submit button at the bottom of the screen to request recipe recommendations.</p>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-primary">Request Recipes</button>
+        <button type="submit" class="save btn btn-primary">Request Recipe</button>
     </form>
 {% endblock %}
