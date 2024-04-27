@@ -20,7 +20,7 @@ def GetFoodRec(title, ingredients, tools):
     message = client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
-        content=f"Inputs: {title}, {ingredients}, {tools}. recommend a recipe based on the given inputs"
+        content=f"Inputs: {title}, {ingredients}, {tools}. recommend a recipe based on the given inputs. Give back a response that starts with a greeting, then explains the ingredients and tools utilized in the recommended recipe, including the quantities of each ingredient used. Next, on new lines provide the estimated preparation and cooking times. Then, provide an ordered list of the instructions of the recipe."
     )
     
     #used to generate a response from thread after it has input
