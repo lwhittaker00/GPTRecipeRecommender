@@ -62,6 +62,7 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'recommender/post_edit.html', {'form': form})
 
+#handles deletion of existing post
 def delete_recommendation(request, post_id):
     recommendation = get_object_or_404(Post, pk=post_id)
     if request.method == 'POST':
